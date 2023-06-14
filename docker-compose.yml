@@ -1,0 +1,41 @@
+---
+version: '3.7'
+
+services:
+
+  komunica-app:
+    container_name: komunica-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        POETRY_DEV: true
+    env_file:
+      - env-local
+    ports:
+      - 8000:80
+      - 5678:5678
+    volumes:
+      - ./src/:/app:cached
+    command: ["run-devel"]
+    depends_on:
+      komunica-db:
+        condition: service_healthy
+
+  komunica-db:
+    container_name: komunica-db
+    image: postgres:14
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "komunica"]
+      interval: 10s
+      retries: 5
+      start_period: 5s
+    env_file:
+      - env-local
+    volumes:
+      - komunica-db-data:/var/lib/postgresql/data
+
+volumes:
+  komunica-db-data:

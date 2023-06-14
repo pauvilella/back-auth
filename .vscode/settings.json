@@ -1,0 +1,29 @@
+{
+    "terminal.integrated.env.osx": {
+        "PYTHONPATH": "${workspaceFolder}/"
+    },
+    "editor.formatOnSave": true,
+    "ruff.args": ["--config=./pyproject.toml"],
+    "ruff.path": [".venv/bin/ruff"],
+    "[python]": {
+        "gitlens.codeLens.symbolScopes": [
+            "!Module"
+        ],
+        "editor.wordBasedSuggestions": true,
+        "editor.codeActionsOnSave": {
+            "source.fixAll": true,
+            "source.fixAll.ruff": true,
+            "source.organizeImports.ruff": true
+        }
+    },
+    "python.formatting.provider": "black",
+    "python.formatting.blackArgs":["--config=./pyproject.toml"],
+    "python.languageServer": "Pylance", // use Pylance to get advantatge of it's features
+    "python.analysis.autoImportCompletions": true, // Enable feature for auto imports
+    "files.associations": {
+        "env-local*": "shellscript"
+    },
+    "python.analysis.extraPaths": [
+        "${workspaceFolder}/"
+    ],
+}

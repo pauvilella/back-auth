@@ -1,0 +1,43 @@
+version: 1
+disable_existing_loggers: false
+
+formatters:
+  json:
+    class: pythonjsonlogger.jsonlogger.JsonFormatter
+    format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s - %(filename)s:%(lineno)d - %(process)d - %(thread)d - %(processName)s - %(threadName)s - %(module)s - %(funcName)s - %(relativeCreated)d - %(created)f - %(exc_info)s"
+
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: INFO
+    formatter: json
+    stream: ext://sys.stdout
+
+root:
+  level: NOTSET
+  handlers: [console]
+  propogate: no
+
+loggers:
+  data-service:
+    qualname: data-service
+    level: INFO
+    propogate: no
+  requests:
+    level: INFO
+    propagate: no
+  sqlalchemy:
+    level: WARNING
+    propogate: no
+  uvicorn:
+    level: INFO
+    propagate: no
+  uvicorn.error:
+    level: INFO
+    propagate: no
+  uvicorn.access:
+    level: INFO
+    propagate: no
+  botocore:
+    level: INFO
+    propagate: no

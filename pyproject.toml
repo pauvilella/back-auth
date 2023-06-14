@@ -1,0 +1,102 @@
+[tool.poetry]
+name = "komunica"
+version = "0.1.0"
+description = "Backend for the Komunica service."
+authors = ["Pau Vilella <pau.vilella.st@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "==3.10.9"
+fastapi = "^0.95.0"
+python-multipart = "^0.0.5"
+uvicorn = "^0.21.1"
+pydantic = "^1.10.6"
+isort = "5.9.3"
+mypy = "^0.991"
+coloredlogs = "^15.0.1"
+pyyaml = "^6.0"
+colorlog = "^6.7.0"
+python-json-logger = "^2.0.7"
+
+[tool.poetry.group.dev.dependencies]
+debugpy = "^1.6.6"
+ruff = "^0.0.263"
+
+[build-system]
+requires = ["setuptools", "setuptools-scm", "poetry-core>=1.0.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages]
+find = {}  # Scanning implicit namespaces is active by default
+
+[tool.ruff] # Documentation: https://beta.ruff.rs/docs
+line-length = 120 # Same as Black.
+# Rules documentation: https://beta.ruff.rs/docs/rules/
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # pyflakes
+    "YTT",  # flake8-2020
+    "C",    # flake8-comprehensions
+    "B",    # flake8-bugbear,
+    "N",    # pep8-naming
+    "I" ]   # isort
+
+ignore = [
+    "B008", # do not perform function calls in argument defaults
+    "C901", # too complex
+    "B904", # `except` clause, raise exceptions with `raise,
+    "B027", # is an empty method in an abstract base class
+    "B024", # abstract base class, but it has no abstract methods
+    "B026", # Star-arg unpacking after a keyword argument is strongly discouraged
+    "B905", # `zip()` without an explicit `strict=` parameter
+    "N818",
+    "F811"]  # Error suffix on exception class names
+
+target-version = "py39"
+
+# We do not especify exclude directories and files as default configuration matches our use case.
+
+[tool.ruff.mccabe]
+# Unlike Flake8, default to a complexity level of 10.
+max-complexity = 10
+
+[tool.ruff.pep8-naming]
+# Allow Pydantic's `@validator` decorator to trigger class method treatment.
+classmethod-decorators = ["pydantic.validator","pydantic.root_validator"]
+
+# ISORT CONFIGURATION USED BY RUFF
+[tool.ruff.isort] # https://beta.ruff.rs/docs/settings/#isort
+force-sort-within-sections = true
+lines-after-imports = 2
+lines-between-types = 0
+
+[tool.black]
+line-length = 120
+skip-string-normalization = true
+target-version = ['py39']
+include = '\.pyi?$'
+exclude = '''/(
+  /(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+    | migrations
+  )/
+  | foo.py           # also separately exclude a file named foo.py in
+                     # the root of the project
+)/
+'''
+
+[tool.pylint]
+max-line-length = 120
+disable = ["C0112","C0114","C0115","C0116"]

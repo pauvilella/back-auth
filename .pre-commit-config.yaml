@@ -1,0 +1,45 @@
+exclude: "docs|node_modules|migrations|shared|.git|.tox|.hbs"
+default_stages: [commit]
+fail_fast: true
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks # Refer to this repository for futher documentation about official pre-commit hooks
+    rev: v4.4.0
+    hooks:
+      # Prevent giant files from being committed. Specify what is "too large" with args: ['--maxkb=123'] (default=500kB).
+      - id: check-added-large-files
+      # By default, this hook trims all whitespace from the ends of lines.
+      - id: trailing-whitespace
+      # Makes sure files end in a newline and only a newline.
+      - id: end-of-file-fixer
+      # Replaces automatically the most frequent line ending ( crlf, lf )
+      - id: mixed-line-ending
+      # Checks TOML and YAML files syntax
+      - id: check-toml
+      - id: check-yaml
+        args:
+          - --unsafe # Instead of loading the files, simply parse them for syntax.
+      - id: detect-private-key
+
+  - repo: local
+    hooks:
+      - id: lower-case-only
+        name: lower case only
+        entry: filenames must be lower_case only
+        language: fail
+        files: "[^a-z0-9._].py"
+
+  # Pre-commit hook to use ruff, official ruff repository: https://github.com/charliermarsh/ruff , and documentation: https://beta.ruff.rs/docs/
+  # Ruff configuration is defined at pyproject.toml under [tool.ruff] section
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: v0.0.272
+    hooks:
+      - id: ruff
+        args:
+          - --fix # Enables autofixing
+
+  - repo: https://github.com/psf/black # Refer to this repository for futher documentation about black hook
+    rev: 23.3.0
+    hooks:
+      - id: black
+        language_version: python3

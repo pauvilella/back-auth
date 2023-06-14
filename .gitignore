@@ -1,0 +1,22 @@
+# MacOS
+*.DS_Store
+
+# Virtual environments
+.venv
+
+# Visual Studio Code
+.history
+
+# Linters
+.ruff_cache
+
+# Tests
+htmlcov/
+.coverage*
+coverage.xml
+__pycache__/
+.pytest_cache
+
+# Python files to ignore
+*.py[cod]
+*$py.class

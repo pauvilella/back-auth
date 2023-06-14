@@ -1,0 +1,3 @@
+POSTGRES_USER=komunica
+POSTGRES_PASSWORD=komunica
+POSTGRES_DB=komunica
