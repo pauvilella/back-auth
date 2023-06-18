@@ -2,7 +2,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Debug: Attach to komunica",
+      "name": "Debug: Attach to back-auth",
       "type": "python",
       "request": "attach",
       "connect": {

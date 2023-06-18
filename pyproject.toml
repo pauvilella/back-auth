@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "komunica"
+name = "back-auth"
 version = "0.1.0"
-description = "Backend for the Komunica service."
+description = "Backend service with authentication."
 authors = ["Pau Vilella <pau.vilella.st@gmail.com>"]
 
 [tool.poetry.dependencies]

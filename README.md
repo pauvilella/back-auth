@@ -1,7 +1,7 @@
-<h1 align="center"> Komunica </h1> <br>
+<h1 align="center"> back-auth </h1> <br>
 
 <p align="center">
-Backend app for Komunica
+Backend service with authentication.
 </p>
 
 

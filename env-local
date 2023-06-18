@@ -1,3 +1,3 @@
-POSTGRES_USER=komunica
-POSTGRES_PASSWORD=komunica
-POSTGRES_DB=komunica
+POSTGRES_USER=back-auth
+POSTGRES_PASSWORD=back-auth
+POSTGRES_DB=back-auth

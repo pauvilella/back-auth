@@ -3,8 +3,8 @@ version: '3.7'
 
 services:
 
-  komunica-app:
-    container_name: komunica-app
+  back-auth-app:
+    container_name: back-auth-app
     build:
       context: .
       dockerfile: Dockerfile
@@ -19,23 +19,23 @@ services:
       - ./src/:/app:cached
     command: ["run-devel"]
     depends_on:
-      komunica-db:
+      back-auth-db:
         condition: service_healthy
 
-  komunica-db:
-    container_name: komunica-db
+  back-auth-db:
+    container_name: back-auth-db
     image: postgres:14
     ports:
       - 5432:5432
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "komunica"]
+      test: ["CMD", "pg_isready", "-U", "back-auth"]
       interval: 10s
       retries: 5
       start_period: 5s
     env_file:
       - env-local
     volumes:
-      - komunica-db-data:/var/lib/postgresql/data
+      - back-auth-db-data:/var/lib/postgresql/data
 
 volumes:
-  komunica-db-data:
+  back-auth-db-data:
