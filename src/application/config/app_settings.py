@@ -18,4 +18,5 @@ class AppSettings(BaseSettings):
     class Config(object):
         case_sensitive = True
 
+
 app_settings = AppSettings()

@@ -1,8 +1,8 @@
 import logging
 
 from application.config.app_settings import app_settings
-from domain_one.core.dtos.user import UserDTO
-from domain_one.core.ports.user import UserPort
+from users.core.dtos.user import UserDTO
+from users.core.ports.user import UserPort
 
 
 logger = logging.getLogger(app_settings.APP_LOGGER)

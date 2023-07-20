@@ -1,13 +1,12 @@
 import datetime
 import logging
 
-from sqlalchemy import Boolean, Column, Date, String
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
-
 from application.config.app_settings import app_settings
-from domain_one.core.dtos.user import UserDTO
-from domain_one.core.ports.user import UserPort
 from infra.databases.postgres import PostgresDatabaseConnection
+from sqlalchemy import Column, Date, String
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from users.core.dtos.user import UserDTO
+from users.core.ports.user import UserPort
 
 
 logger = logging.getLogger(app_settings.APP_LOGGER)
@@ -18,24 +17,18 @@ class Base(DeclarativeBase):
 
 
 class User(Base):
-    __tablename__ = "fundcraft_user"
+    __tablename__ = "user"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    username = Column(String)
     first_name = Column(String)
     last_name = Column(String)
     email = Column(String)
     password = Column(String)
-    is_superuser = Column(Boolean, default=False)
-    is_staff = Column(Boolean, default=False)
-    is_active = Column(Boolean, default=True)
-    is_m2m = Column(Boolean, default=False)
-    date_joined = Column(Date, default=datetime.datetime.utcnow)
+    created_at = Column(Date, default=datetime.datetime.utcnow)
 
     def to_dto(self) -> UserDTO:
         return UserDTO(
             id=self.id,
-            username=self.username,
             name=self.first_name,
             last_name=self.last_name,
             email=self.email,
@@ -43,8 +36,6 @@ class User(Base):
         )
 
     def update_from_dto(self, user: UserDTO):
-        if user.username:
-            self.username = user.username
         if user.name:
             self.first_name = user.name
         if user.last_name:
@@ -58,7 +49,6 @@ class User(Base):
     def from_dto(user: UserDTO):
         return User(
             id=user.id,
-            username=user.username,
             first_name=user.name,
             last_name=user.last_name,
             email=user.email,

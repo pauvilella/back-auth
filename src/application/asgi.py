@@ -1,8 +1,8 @@
 import logging
 
-#from domain_one.api.router import router as domain_one_router
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from users.api.fastapi.user import router as users_router
 
 from application.api.router import router as application_router
 from application.config.app_settings import app_settings
@@ -31,5 +31,4 @@ app.add_middleware(
 )
 
 app.include_router(application_router, prefix='/api')
-#app.include_router(domain_one_router, prefix='/api')
-
+app.include_router(users_router, prefix='/api')

@@ -16,6 +16,12 @@ coloredlogs = "^15.0.1"
 pyyaml = "^6.0"
 colorlog = "^6.7.0"
 python-json-logger = "^2.0.7"
+orjson = "^3.9.2"
+bcrypt = "^4.0.1"
+pyjwt = "^2.8.0"
+sqlalchemy = "^2.0.19"
+alembic = "^1.11.1"
+psycopg2-binary = "^2.9.6"
 
 [tool.poetry.group.dev.dependencies]
 debugpy = "^1.6.6"
@@ -53,6 +59,7 @@ ignore = [
     "B026", # Star-arg unpacking after a keyword argument is strongly discouraged
     "B905", # `zip()` without an explicit `strict=` parameter
     "N818",
+    "N804", # First argument of a class method should be named `cls`
     "F811"]  # Error suffix on exception class names
 
 target-version = "py39"

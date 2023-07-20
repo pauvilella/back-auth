@@ -2,10 +2,9 @@ from contextlib import AbstractContextManager, contextmanager
 import logging
 from typing import Callable
 
+from application.config.app_settings import app_settings
 from sqlalchemy import create_engine, orm
 from sqlalchemy.orm import Session
-
-from application.config.app_settings import app_settings
 
 
 logger = logging.getLogger(app_settings.APP_LOGGER)

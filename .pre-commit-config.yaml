@@ -32,14 +32,14 @@ repos:
   # Pre-commit hook to use ruff, official ruff repository: https://github.com/charliermarsh/ruff , and documentation: https://beta.ruff.rs/docs/
   # Ruff configuration is defined at pyproject.toml under [tool.ruff] section
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.0.272
+    rev: v0.0.278
     hooks:
       - id: ruff
         args:
           - --fix # Enables autofixing
 
   - repo: https://github.com/psf/black # Refer to this repository for futher documentation about black hook
-    rev: 23.3.0
+    rev: 23.7.0
     hooks:
       - id: black
         language_version: python3

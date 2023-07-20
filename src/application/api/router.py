@@ -1,12 +1,13 @@
-from fastapi.responses import ORJSONResponse as JSONResponse
+from fastapi.responses import ORJSONResponse
 from fastapi.routing import APIRouter
 
 
 router = APIRouter()
 
+
 @router.get(
     '/',
-    response_class=JSONResponse,
+    response_class=ORJSONResponse,
     status_code=200,
     tags=['Healhtcheck'],
 )
