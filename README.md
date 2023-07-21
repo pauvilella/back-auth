@@ -14,6 +14,9 @@ Backend service with authentication.
   - [Start](#start)
 - [Local development](#local-development)
   - [Debugging](#debugging)
+- [Alembic](#alembic)
+  - [Create a new migration version](#create-a-new-migration-version)
+  - [Run the new version migrations](#run-the-new-version-migrations)
 
 ## Setup
 
@@ -57,3 +60,17 @@ DEBUGPY=True docker compose up
 Once the service has started, open the debug view on vscode:
 
 <b>command + alt + D</b>
+
+## Alembic
+
+### Create a new migration version
+```bash
+docker compose run --rm back-auth-app bash -c 'alembic revision --autogenerate -m "Revision message"'
+```
+
+### Run the new version migrations
+We could manually execute this command:
+```bash
+docker compose run --rm back-auth-app bash -c 'alembic upgrade head'
+```
+Nevertheless, it is added in the command locally, so it will run everytime we start our appp. Checkout the **docker-compose.yml** file.

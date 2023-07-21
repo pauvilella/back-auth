@@ -1,8 +1,7 @@
 ---
-version: '3.7'
+version: "3.7"
 
 services:
-
   back-auth-app:
     container_name: back-auth-app
     build:
@@ -17,7 +16,7 @@ services:
       - 5678:5678
     volumes:
       - ./src/:/app:cached
-    command: ["run-devel"]
+    command: ["sh", "-c", "alembic upgrade head && /entrypoint.sh run-devel"]
     depends_on:
       back-auth-db:
         condition: service_healthy
