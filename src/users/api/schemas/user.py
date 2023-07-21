@@ -1,26 +1,26 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 
 
-class UserResponse(BaseModel):
-    id: int
-    name: str
-
-
-class UserDetailResponse(BaseModel):
-    id: int
-    name: str
-    email: str
-
-
-class CreateUserRequest(BaseModel):
-    id: int
-    username: str
-    name: str
-    last_name: str
-    email: str
+class UserLoginRequest(BaseModel):
+    email: EmailStr
     password: str
 
 
-class UpdateUserRequest(BaseModel):
-    name: str
-    password: str
+# class UserDetailResponse(BaseModel):
+#     id: int
+#     name: str
+#     email: str
+
+
+# class CreateUserRequest(BaseModel):
+#     id: int
+#     username: str
+#     name: str
+#     last_name: str
+#     email: str
+#     password: str
+
+
+# class UpdateUserRequest(BaseModel):
+#     name: str
+#     password: str

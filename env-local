@@ -1,3 +1,5 @@
 POSTGRES_USER=back-auth
 POSTGRES_PASSWORD=back-auth
 POSTGRES_DB=back-auth
+POSTGRES_HOST=back-auth-db
+POSTGRES_PORT=5432

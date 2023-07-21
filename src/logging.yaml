@@ -19,8 +19,8 @@ root:
   propogate: no
 
 loggers:
-  data-service:
-    qualname: data-service
+  back-auth:
+    qualname: back-auth
     level: INFO
     propogate: no
   requests:
@@ -29,6 +29,8 @@ loggers:
   sqlalchemy:
     level: WARNING
     propogate: no
+  alembic:
+    level: INFO
   uvicorn:
     level: INFO
     propagate: no
