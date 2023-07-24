@@ -11,7 +11,7 @@ from application.config.app_settings import app_settings
 logger = logging.getLogger(app_settings.APP_LOGGER)
 
 
-def handle_jwt(auth: HTTPAuthorizationCredentials = Security(HTTPBearer())) -> dict:
+async def handle_jwt(auth: HTTPAuthorizationCredentials = Security(HTTPBearer())) -> dict:
     token = auth.credentials
     try:
         payload = jwt.decode(token, app_settings.APP_SECRET_KEY, algorithms=['HS256'])
