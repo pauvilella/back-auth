@@ -12,29 +12,13 @@ class UserLoginRequest(BaseModel):
     password: str
 
 
+class UserLoginResponse(BaseModel):
+    token: str
+
+
 class UserSignupRequest(UserBase):
     password: str
 
 
 class UserSignupResponse(UserBase):
     is_active: bool
-
-
-# class UserDetailResponse(BaseModel):
-#     id: int
-#     name: str
-#     email: str
-
-
-# class CreateUserRequest(BaseModel):
-#     id: int
-#     username: str
-#     name: str
-#     last_name: str
-#     email: str
-#     password: str
-
-
-# class UpdateUserRequest(BaseModel):
-#     name: str
-#     password: str

@@ -2,6 +2,7 @@ import logging
 
 from application.config.app_settings import app_settings
 from infra.databases.postgres import Base, get_db
+from pydantic import EmailStr
 from sqlalchemy import Boolean, Column, Integer, LargeBinary, PrimaryKeyConstraint, String, UniqueConstraint
 from users.core.dtos.user import UserDTO
 from users.core.ports.user import UserPort
@@ -78,6 +79,20 @@ class UsersPostgresRepository(UserPort):
                 logger.debug(db_user)
                 logger.info("User created successfully!")
                 return db_user.to_dto()
+        except Exception:
+            logger.exception("Error creating user in PostgreSQL")
+
+    def get_user_by_email(self, email: EmailStr) -> UserDTO:
+        try:
+            logger.info(f"Getting user by email: {email}")
+            with get_db() as session:
+                user_from_db: User = session.query(User).filter(User.email == email).one()
+                if user_from_db:
+                    logger.info(f"User found! {user_from_db}")
+                    return user_from_db.to_dto()
+                else:
+                    logger.warning(f"Not found any user with email: {email}")
+                    return None
         except Exception:
             logger.exception("Error creating user in PostgreSQL")
 

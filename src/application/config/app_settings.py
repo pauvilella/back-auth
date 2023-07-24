@@ -25,6 +25,8 @@ class AppSettings(BaseSettings):
         password=os.getenv('POSTGRES_PASSWORD'),
     )
 
+    APP_SECRET_KEY = os.getenv('APP_SECRET_KEY')
+
     class Config(object):
         case_sensitive = True
 
