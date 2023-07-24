@@ -1,10 +1,12 @@
+from typing import Optional
+
 from pydantic import BaseModel
 
 
 class UserDTO(BaseModel):
-    id: int
+    id: Optional[int]
     email: str
-    hashed_password: str
+    hashed_password: bytes
     first_name: str
     last_name: str
     is_active: bool

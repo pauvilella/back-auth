@@ -1,7 +1,13 @@
-from abc import ABC
+from abc import ABC, abstractclassmethod
+
+from users.core.dtos.user import UserDTO
 
 
 class UserPort(ABC):
+    @abstractclassmethod
+    def create_user(self, user: UserDTO) -> UserDTO:
+        ...
+
     # @abstractclassmethod
     # def get_users(self) -> list[UserDTO]:
     #     ...
