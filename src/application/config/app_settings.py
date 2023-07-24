@@ -26,6 +26,7 @@ class AppSettings(BaseSettings):
     )
 
     APP_SECRET_KEY = os.getenv('APP_SECRET_KEY')
+    ALGORITHM = 'HS256'
 
     class Config(object):
         case_sensitive = True

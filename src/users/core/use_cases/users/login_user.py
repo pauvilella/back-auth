@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 import logging
 
 from application.config.app_settings import app_settings
@@ -26,7 +27,10 @@ class LoginUserUseCase:
                         "first_name": user.first_name,
                         "last_name": user.last_name,
                         "is_active": user.is_active,
+                        'exp': datetime.utcnow() + timedelta(days=0, minutes=5),
+                        'iat': datetime.utcnow(),
                     },
                     app_settings.APP_SECRET_KEY,
+                    algorithm="HS256",
                 )
         return None

@@ -22,3 +22,8 @@ class UserSignupRequest(UserBase):
 
 class UserSignupResponse(UserBase):
     is_active: bool
+
+
+class UserMeResponse(UserBase):
+    id: int
+    is_active: bool
