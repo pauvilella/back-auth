@@ -13,7 +13,8 @@ class UserLoginRequest(BaseModel):
 
 
 class UserLoginResponse(BaseModel):
-    token: str
+    access_token: str
+    refresh_token: str
 
 
 class UserSignupRequest(UserBase):
@@ -22,6 +23,10 @@ class UserSignupRequest(UserBase):
 
 class UserSignupResponse(UserBase):
     is_active: bool
+
+
+class UserTokenRefreshRequest(BaseModel):
+    refresh_token: str
 
 
 class UserMeResponse(UserBase):

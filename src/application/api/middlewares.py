@@ -16,7 +16,12 @@ async def handle_jwt(auth: HTTPAuthorizationCredentials = Security(HTTPBearer())
     try:
         payload = jwt.decode(token, app_settings.APP_SECRET_KEY, algorithms=['HS256'])
         remaining = datetime.utcfromtimestamp(payload["exp"]) - datetime.utcnow()
-        logger.info("Token decoded OK, minutes until expiry %.2f" % (remaining.seconds / 60))
+        days = remaining.days
+        hours = remaining.seconds // 3600
+        mins = (remaining.seconds % 3600) // 60
+        logger.info(f"Token decoded OK! {days} days, {hours} hours and {mins} minutes until it expires.")
+        del payload["exp"]
+        del payload["iat"]
         return payload
     except jwt.ExpiredSignatureError:
         raise HTTPException(status_code=401, detail='Signature has expired')

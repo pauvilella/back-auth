@@ -12,19 +12,3 @@ class UserPort(ABC):
     @abstractclassmethod
     def get_user_by_email(self, email: EmailStr) -> UserDTO:
         ...
-
-    # @abstractclassmethod
-    # def get_users(self) -> list[UserDTO]:
-    #     ...
-
-    # @abstractclassmethod
-    # def update_user(self, user: UserDTO) -> UserDTO:
-    #     ...
-
-    # @abstractclassmethod
-    # def create_user(self, user: UserDTO) -> UserDTO:
-    #     ...
-
-    # @abstractclassmethod
-    # def delete_user(self, user_id: int) -> bool:
-    ...

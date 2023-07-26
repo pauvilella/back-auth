@@ -5,6 +5,7 @@ from application.config.app_settings import app_settings
 import bcrypt
 from fastapi import APIRouter, HTTPException, status
 from fastapi.params import Depends
+from fastapi.security import HTTPAuthorizationCredentials
 
 from users.api.schemas.user import (
     UserLoginRequest,
@@ -12,26 +13,16 @@ from users.api.schemas.user import (
     UserMeResponse,
     UserSignupRequest,
     UserSignupResponse,
+    UserTokenRefreshRequest,
 )
 from users.core.dtos.user import UserDTO
-from users.core.use_cases.users.login_user import LoginUserUseCase
+from users.core.use_cases.users.login_user import LoginUserUseCase, create_jwt_tokens
 from users.core.use_cases.users.signup_user import SignupUserUseCase
 
 
 logger = logging.getLogger(app_settings.APP_LOGGER)
 
 router = APIRouter(prefix="/users")
-
-
-@router.post(
-    '/login/',
-    tags=['Users'],
-)
-def login(payload: UserLoginRequest) -> UserLoginResponse:
-    token = LoginUserUseCase().login_user(payload)
-    if not token:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
-    return UserLoginResponse(token=token)
 
 
 @router.post(
@@ -51,9 +42,37 @@ def signup(payload: UserSignupRequest) -> UserSignupResponse:
     return UserSignupResponse.parse_obj(user)
 
 
+@router.post(
+    '/login/',
+    tags=['Users'],
+)
+def login(payload: UserLoginRequest) -> UserLoginResponse:
+    tokens = LoginUserUseCase().login_user(payload)
+    if not tokens:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
+    return UserLoginResponse(**tokens)
+
+
+@router.post(
+    '/token/refresh/',
+    tags=['Users'],
+)
+async def refresh_tokens(payload: UserTokenRefreshRequest) -> UserLoginResponse:
+    data = await handle_jwt(HTTPAuthorizationCredentials(scheme="Bearer", credentials=payload.refresh_token))
+    logger.info("Refresh token validated OK! Generating a new pair of tokens.")
+    tokens = create_jwt_tokens(data)
+    return UserLoginResponse(**tokens)
+
+
 @router.get(
     '/me/',
     tags=['Users'],
 )
 def me(data_from_jwt: dict = Depends(handle_jwt)) -> UserMeResponse:
-    return UserMeResponse(**data_from_jwt)
+    return UserMeResponse(
+        id=data_from_jwt["user_id"],
+        email=data_from_jwt["user_email"],
+        first_name=data_from_jwt["user_first_name"],
+        last_name=data_from_jwt["user_last_name"],
+        is_active=data_from_jwt["user_is_active"],
+    )
